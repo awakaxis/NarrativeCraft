@@ -137,8 +137,8 @@ public class Playback implements IPlaybackSession {
             pause();
             return;
         }
-            notifySiblings();
-            stop();
+        notifySiblings();
+        stop();
     }
 
     public void stop() {
@@ -354,9 +354,12 @@ public class Playback implements IPlaybackSession {
         List<Animation> siblingAnims = this.animation.getLinkedSubscenes().stream()
                 .flatMap(subscene -> subscene.getAnimations().stream())
                 .filter(anim -> anim.getId() != this.animation.getId())
-                .distinct().toList();
-        return NarrativeCraftMod.getInstance().getPlaybackManager().getList()
-                .stream().filter(playback -> siblingAnims.contains(playback.animation) && playback.targetedPlayers.equals(this.targetedPlayers)).toList();
+                .distinct()
+                .toList();
+        return NarrativeCraftMod.getInstance().getPlaybackManager().getList().stream()
+                .filter(playback -> siblingAnims.contains(playback.animation)
+                        && playback.targetedPlayers.equals(this.targetedPlayers))
+                .toList();
     }
 
     /**
